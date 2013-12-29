@@ -31,10 +31,9 @@
   "Registration successful!")
 
 (defroute "/users" ()
-  (let ((results (list :users (loop for r in (select-all (connect-db :maindb) :* (from :user))
-				 collect (list :name (getf r :|username|))))))
+  (let ((results (select-all (connect-db :maindb) :* (from :user))))
     (render #P"users.tmpl"
-	    results)))
+	    (list :users results))))
 
 ;; Error pages
 
